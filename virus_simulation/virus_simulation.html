@@ -2,10 +2,20 @@
 <html lang="ja">
     <head>
       <script>
-         window.addEventListener('load', function() {
+          window.addEventListener('load', function() {
     alert("重大なセキュリティ警告！\nウイルスを検出しました。");
+    
+    const startBtn = document.getElementById("startBtn");
+    const overlay = document.getElementById("overlay");
+    
+    startBtn.addEventListener('click', function() {
+      overlay.style.display = 'block';
+      alert("感染拡大中…ファイルをスキャンしています。");
+    });
   });
+     
       </script>
+      
         <meta charset="UTF-8">
         <title>【警告】ウイルスに感染しました？</title>
         <style>
@@ -34,4 +44,7 @@
         <h1 style="color:red;">警告！あなたのPCがウイルスに感染しました…？</h1>
         <p>システムで重大な問題が検出されました。<br>
            重要ファイルが危険にさらされています。</p>
+           <button id="startBtn" style="font-size:1.2em; padding:10px 20px;">
+            感染シミュレーション開始
+          </button>
       </body>
