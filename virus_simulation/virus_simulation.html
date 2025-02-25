@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>【警告】ウイルスに感染しました？</title>
   <style>
+    /* 全体のスタイル */
     body {
       margin: 0;
       padding: 0;
@@ -16,6 +17,8 @@
       margin-top: 50px;
       color: red;
     }
+
+    /* 赤い半透明のオーバーレイ */
     #overlay {
       position: fixed;
       top: 0; left: 0;
@@ -23,7 +26,20 @@
       background: rgba(255, 0, 0, 0.2);  /* 半透明の赤 */
       display: none;   /* 初期は非表示 */
     }
+
+    /* 画面が揺れるアニメーション */
+    @keyframes shake {
+      0%, 100% { transform: translate(0, 0); }
+      20% { transform: translate(-10px, 0); }
+      40% { transform: translate(10px, 0); }
+      60% { transform: translate(-5px, 0); }
+      80% { transform: translate(5px, 0); }
+    }
+    .shake {
+      animation: shake 0.5s infinite;
+    }
   </style>
+
   <script>
     window.addEventListener('load', function() {
       // ページ読み込み直後に警告アラート
@@ -32,9 +48,10 @@
       // ボタンや要素の取得
       const startBtn = document.getElementById("startBtn");
       const overlay  = document.getElementById("overlay");
-
+      
       // ボタンクリック時の処理
       startBtn.addEventListener('click', function() {
+        // オーバーレイを表示
         overlay.style.display = 'block';
         alert("感染拡大中…ファイルをスキャンしています。");
 
@@ -47,10 +64,23 @@
         setTimeout(function(){
           alert("ウイルスがシステムを破壊しようとしています…");
         }, 6000);
+
+        // 2秒おきに “ウイルス進行中... (カウンタ)” の行を追加
+        let counter = 0;
+        setInterval(function(){
+          const p = document.createElement('p');
+          p.textContent = "ウイルス進行中… (" + counter + ")";
+          p.style.color = (counter % 2 === 0) ? 'red' : 'yellow';
+          // shakeアニメーションを適用
+          p.classList.add('shake');
+          document.body.appendChild(p);
+          counter++;
+        }, 2000);
       });
     });
   </script>
 </head>
+
 <body>
   <h1>警告！あなたのPCがウイルスに感染しました…？</h1>
   <p>システムで重大な問題が検出されました。<br>
@@ -60,7 +90,7 @@
     感染シミュレーション開始
   </button>
 
-  <!-- 後から赤い半透明で画面を覆うための要素 -->
+  <!-- 赤い半透明で画面を覆うための要素 -->
   <div id="overlay"></div>
 </body>
 </html>
