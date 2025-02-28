@@ -41,6 +41,12 @@
   </style>
 
   <script>
+
+if(timeLeft <= 0){
+  clearInterval(countdown);
+  document.body.innerHTML = "<h1 style='color:red;'>深刻なエラー発生！！</h1>"
+    + "<p>OS が破壊されました。</p>";
+}
 let timeLeft = 10;
 const timerDiv = document.getElementById('timer');
 timerDiv.textContent = "システム崩壊まで: " + timeLeft + " 秒";
