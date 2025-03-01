@@ -102,6 +102,11 @@ setInterval(function(){
         }, 2000);
       });
     });
+    if(timeLeft <= 0){
+  clearInterval(countdown);
+  document.body.innerHTML = "<h1 style='color:red;'>深刻なエラー発生！！</h1>"
+    + "<p>OS が破壊されました。</p>";
+}
   </script>
 </head>
 
