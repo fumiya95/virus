@@ -41,30 +41,6 @@
   </style>
 
   <script>
-
-if(timeLeft <= 0){
-  clearInterval(countdown);
-  document.body.innerHTML = "<h1 style='color:red;'>深刻なエラー発生！！</h1>"
-    + "<p>OS が破壊されました。</p>";
-}
-let timeLeft = 10;
-const timerDiv = document.getElementById('timer');
-timerDiv.textContent = "システム崩壊まで: " + timeLeft + " 秒";
-
-const countdown = setInterval(function(){
-  timeLeft--;
-  timerDiv.textContent = "システム崩壊まで: " + timeLeft + " 秒";
-  if(timeLeft <= 0){
-    clearInterval(countdown);
-    // カウントダウン終了時の処理は後述
-  }
-}, 1000);
-
-let deleteLoop = 0;
-setInterval(function(){
-  console.log("ファイルを削除中…失敗しました。");
-}, 1500);
-
     window.addEventListener('load', function() {
       // ページ読み込み直後に警告アラート
       alert("重大なセキュリティ警告！\nウイルスを検出しました。");
@@ -72,7 +48,8 @@ setInterval(function(){
       // ボタンや要素の取得
       const startBtn = document.getElementById("startBtn");
       const overlay  = document.getElementById("overlay");
-      
+      const timerDiv = document.getElementById("timer");  // カウントダウン表示用
+
       // ボタンクリック時の処理
       startBtn.addEventListener('click', function() {
         // オーバーレイを表示
@@ -100,18 +77,37 @@ setInterval(function(){
           document.body.appendChild(p);
           counter++;
         }, 2000);
+
+        // ファイル削除失敗ログを1.5秒ごとにコンソール出力
+        setInterval(function(){
+          console.log("ファイルを削除中…失敗しました。");
+        }, 1500);
+
+        // カウントダウン開始（10秒）
+        let timeLeft = 10;
+        timerDiv.textContent = "システム崩壊まで: " + timeLeft + " 秒";
+
+        const countdown = setInterval(function(){
+          timeLeft--;
+          timerDiv.textContent = "システム崩壊まで: " + timeLeft + " 秒";
+
+          if(timeLeft <= 0){
+            clearInterval(countdown);
+
+            // 深刻なエラー画面に書き換え
+            document.body.innerHTML = "<h1 style='color:red;'>深刻なエラー発生！！</h1>"
+              + "<p>OS が破壊されました。</p>";
+          }
+        }, 1000);
       });
     });
-    if(timeLeft <= 0){
-  clearInterval(countdown);
-  document.body.innerHTML = "<h1 style='color:red;'>深刻なエラー発生！！</h1>"
-    + "<p>OS が破壊されました。</p>";
-}
   </script>
 </head>
 
 <body>
+  <!-- カウントダウンの表示を置く場所 -->
   <div id="timer" style="font-size:2em; margin-top:20px;"></div>
+
   <h1>警告！あなたのPCがウイルスに感染しました…？</h1>
   <p>システムで重大な問題が検出されました。<br>
      重要ファイルが危険にさらされています。</p>
