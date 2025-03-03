@@ -4,30 +4,24 @@
   <meta charset="UTF-8">
   <title>【警告】ウイルスに感染しました？</title>
   <style>
-    /* 全体のスタイル */
     body {
-      margin: 0;
-      padding: 0;
-      background: #111;  /* 黒っぽい背景 */
-      color: #fff;       /* 白文字 */
+      margin: 0; padding: 0;
+      background: #111;
+      color: #fff;
       font-family: sans-serif;
       text-align: center;
     }
     h1 {
-      margin-top: 50px;
+      margin-top: 30px;
       color: red;
+      font-size: 2em;
     }
-
-    /* 赤い半透明のオーバーレイ */
     #overlay {
-      position: fixed;
-      top: 0; left: 0;
+      position: fixed; top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(255, 0, 0, 0.2);  /* 半透明の赤 */
-      display: none;   /* 初期は非表示 */
+      background: rgba(255, 0, 0, 0.2);
+      display: none;
     }
-
-    /* 画面が揺れるアニメーション */
     @keyframes shake {
       0%, 100% { transform: translate(0, 0); }
       20% { transform: translate(-10px, 0); }
@@ -39,84 +33,77 @@
       animation: shake 0.5s infinite;
     }
   </style>
-
-  <script>
-    window.addEventListener('load', function() {
-      // ページ読み込み直後に警告アラート
-      alert("重大なセキュリティ警告！\nウイルスを検出しました。");
-
-      // ボタンや要素の取得
-      const startBtn = document.getElementById("startBtn");
-      const overlay  = document.getElementById("overlay");
-      const timerDiv = document.getElementById("timer");  // カウントダウン表示用
-
-      // ボタンクリック時の処理
-      startBtn.addEventListener('click', function() {
-        // オーバーレイを表示
-        overlay.style.display = 'block';
-        alert("感染拡大中…ファイルをスキャンしています。");
-
-        // 3秒後にアラート
-        setTimeout(function(){
-          alert("重要ファイルが削除できませんでした…");
-        }, 3000);
-
-        // 6秒後にアラート
-        setTimeout(function(){
-          alert("ウイルスがシステムを破壊しようとしています…");
-        }, 6000);
-
-        // 2秒おきに “ウイルス進行中... (カウンタ)” の行を追加
-        let counter = 0;
-        setInterval(function(){
-          const p = document.createElement('p');
-          p.textContent = "ウイルス進行中… (" + counter + ")";
-          p.style.color = (counter % 2 === 0) ? 'red' : 'yellow';
-          // shakeアニメーションを適用
-          p.classList.add('shake');
-          document.body.appendChild(p);
-          counter++;
-        }, 2000);
-
-        // ファイル削除失敗ログを1.5秒ごとにコンソール出力
-        setInterval(function(){
-          console.log("ファイルを削除中…失敗しました。");
-        }, 1500);
-
-        // カウントダウン開始（10秒）
-        let timeLeft = 10;
-        timerDiv.textContent = "システム崩壊まで: " + timeLeft + " 秒";
-
-        const countdown = setInterval(function(){
-          timeLeft--;
-          timerDiv.textContent = "システム崩壊まで: " + timeLeft + " 秒";
-
-          if(timeLeft <= 0){
-            clearInterval(countdown);
-
-            // 深刻なエラー画面に書き換え
-            document.body.innerHTML = "<h1 style='color:red;'>深刻なエラー発生！！</h1>"
-              + "<p>OS が破壊されました。</p>";
-          }
-        }, 1000);
-      });
-    });
-  </script>
 </head>
-
 <body>
-  <!-- カウントダウンの表示を置く場所 -->
-  <div id="timer" style="font-size:2em; margin-top:20px;"></div>
-
   <h1>警告！あなたのPCがウイルスに感染しました…？</h1>
   <p>システムで重大な問題が検出されました。<br>
      重要ファイルが危険にさらされています。</p>
-
-  <button id="startBtn" style="font-size:1.2em; padding:10px 20px;">
-    感染シミュレーション開始
-  </button>
-
-  <!-- 赤い半透明で画面を覆うための要素 -->
+  <button id="startBtn" style="font-size:1.2em; padding:10px 20px;">感染シミュレーション開始</button>
   <div id="overlay"></div>
+
+  <div id="timer" style="font-size:2em; margin-top:20px;"></div>
+
+  <script>
+    window.addEventListener('load', function(){
+      alert("重大なセキュリティ警告！\nウイルスを検出しました。");
+    });
+
+    const startBtn = document.getElementById("startBtn");
+    const overlay = document.getElementById("overlay");
+    const timerDiv = document.getElementById("timer");
+
+    let virusMsgInterval;
+    let countdown; 
+    let timeLeft = 10;
+
+    startBtn.addEventListener('click', function() {
+      overlay.style.display = 'block';
+      alert("感染拡大中…ファイルをスキャンしています。");
+
+      // 数秒ごとに警告メッセージ
+      setTimeout(function(){
+        alert("重要ファイルが削除できませんでした…");
+      }, 3000);
+      setTimeout(function(){
+        alert("ウイルスがシステムを破壊しようとしています…");
+      }, 6000);
+
+      // 2秒おきに文言を増やす
+      let counter = 0;
+      virusMsgInterval = setInterval(function(){
+        const p = document.createElement('p');
+        p.textContent = "ウイルス進行中… (" + counter + ")";
+        p.style.color = (counter % 2 === 0) ? 'red' : 'yellow';
+        p.classList.add('shake');  // 画面揺れ演出
+        document.body.appendChild(p);
+        counter++;
+      }, 2000);
+
+      // コンソールに削除失敗ログを出し続ける
+      setInterval(function(){
+        console.log("ファイルを削除中…失敗しました。");
+      }, 1500);
+
+      // カウントダウン開始
+      timerDiv.textContent = "システム崩壊まで: " + timeLeft + " 秒";
+      countdown = setInterval(function(){
+        timeLeft--;
+        timerDiv.textContent = "システム崩壊まで: " + timeLeft + " 秒";
+        if(timeLeft <= 0){
+          clearInterval(countdown);
+          // body の中身を一旦全消しして深刻エラー表示
+          document.body.innerHTML = "<h1 style='color:red;'>深刻なエラー発生！！</h1>"
+            + "<p>OS が破壊されました。</p>";
+          
+          // さらに数秒後、ネタばらし
+          setTimeout(function(){
+            document.body.innerHTML = "<h2>ご安心ください。これはただの演出（偽物）です。</h2>"
+              + "<p>実際にウイルス感染はしていません。ご安心を！</p>"
+              + "<p>（ブラウザを閉じれば元通りです）</p>";
+          }, 3000);
+        }
+      }, 1000);
+    });
+  </script>
 </body>
 </html>
