@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>【警告】システムに異常が発生</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #222;
+      color: #eee;
+      font-family: sans-serif;
+      text-align: center;
+    }
+    h1 {
+      margin-top: 50px;
+      color: #ff0000;
+      font-size: 2em;
+    }
+    p {
+      margin: 20px;
+      line-height: 1.6;
+    }
+    .btn {
+      background: #ff0000;
+      color: #fff;
+      padding: 15px 30px;
+      border: none;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #990000;
+    }
+  </style>
+  <script>
+    window.addEventListener('load', function(){
+      // ページロード時に警告
+      alert("システムで重大な問題が検出されました…");
+    });
+
+    function goNextScene() {
+      // 次のシーンへ移動
+      location.href = "scene2_jumpscare.html"; 
+    }
+  </script>
+</head>
+<body>
+  <h1>警告！システムが深刻なエラーを検知</h1>
+  <p>バックグラウンドで未知のプログラムが動作しています。<br>
+     重要ファイルが破壊される可能性があります。</p>
+  <p>このまま放置すると、取り返しのつかない事態になる恐れがあります…</p>
+
+  <button class="btn" onclick="goNextScene()">対策ツールを起動する</button>
+</body>
+</html>
