@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>【ウイルス感染】致命的エラー</title>
+  <style>
+    body {
+      margin: 0; padding: 0;
+      background: #000;
+      color: #fff;
+      text-align: center;
+      font-family: sans-serif;
+      overflow: hidden; /* スクロールバーを隠す */
+      position: relative;
+    }
+    h1 {
+      margin-top: 30px;
+      color: red;
+      font-size: 2em;
+    }
+    #scareImage {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px; /* 画像サイズは適宜調整 */
+      opacity: 0;   /* 初期は見えない */
+      transition: opacity 1s;
+    }
+    .show {
+      opacity: 1; /* 画像を表示 */
+    }
+    /* Jumpscare音声があれば以下で再生する */
+  </style>
+  <script>
+    let audio; 
+
+    window.addEventListener('load', function(){
+      // ページ読み込み直後にアラートを出す
+      alert("ウイルス感染がさらに拡大しました…\n致命的なエラーの恐れがあります。");
+
+      // 数秒後にジャンプスケア（画像 + 音）
+      setTimeout(function(){
+        const scareImg = document.getElementById("scareImage");
+        scareImg.classList.add("show");
+
+        // 音を再生 (あれば)
+        audio = new Audio("scream.mp3"); // scream.mp3は適宜差し替え
+        audio.play();
+
+      }, 3000);
+
+      // 6秒後に次のシーンへ移動
+      setTimeout(function(){
+        location.href = "scene3_finale.html";
+      }, 9000);
+    });
+  </script>
+</head>
+<body>
+  <h1>ファイルシステムが破壊されようとしています…</h1>
+  <p>未知のウイルスが全データを盗み出している可能性があります…</p>
+
+  <!-- ジャンプスケア用の恐怖画像（ネット上のフリー素材などを利用） -->
+  <img id="scareImage" src="scary_face.png" alt="Scary Face">
+
+</body>
+</html>
