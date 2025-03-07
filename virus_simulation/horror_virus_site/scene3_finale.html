@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>【OS破壊】最終警告</title>
+  <style>
+    body {
+      margin: 0; padding: 0;
+      background: #111;  
+      color: #fff;       
+      text-align: center;
+      font-family: sans-serif;
+    }
+    h1 {
+      margin-top: 50px;
+      color: red;
+      font-size: 2em;
+    }
+    .error-text {
+      color: red;
+      margin: 20px;
+      font-size: 1.4em;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+  <script>
+    window.addEventListener('load', function(){
+      alert("最終エラー！ OSを破壊中…");
+
+      const errorDiv = document.getElementById("errorMsg");
+      // 数秒ごとにエラー行を追加
+      let count = 0;
+      const errInterval = setInterval(function(){
+        const p = document.createElement('p');
+        p.className = 'error-text';
+        p.textContent = "システムファイル削除中…失敗（" + count + "）";
+        document.body.appendChild(p);
+        count++;
+      }, 1500);
+
+      // 10秒後に深刻エラー画面に書き換え
+      setTimeout(function(){
+        clearInterval(errInterval);
+        document.body.innerHTML = "<h1 style='color:red;'>深刻なエラー発生！</h1>"
+          + "<p>OSが完全に破壊されました。</p>";
+
+        // さらに5秒後にネタばらし
+        setTimeout(function(){
+          document.body.innerHTML = "<h2>ご安心ください。これはただのホラー演出（偽物）です。</h2>"
+            + "<p>実際の被害はありません。ウイルス感染していません！</p>"
+            + "<p>お疲れさまでした…</p>";
+        }, 5000);
+
+      }, 10000);
+    });
+  </script>
+</head>
+<body>
+  <h1>危険！ OSが崩壊寸前…</h1>
+  <p id="errorMsg">ファイルへのアクセスが拒否されました。</p>
+</body>
+</html>
